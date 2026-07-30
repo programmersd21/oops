@@ -22,7 +22,7 @@ cargo test --workspace
 - `oops-core/` — shared types, command classifier, redirect scanner, SQLite storage, IPC protocol
 - `oops/` — single binary: CLI client + daemon (`oops daemon` subcommand)
 - `oops-tui/` — ratatui-based terminal UI for `list` and `diff`
-- `shell-hooks/` — bash/zsh/fish preexec hook scripts
+- `oops/shell-hooks/` — bash/zsh/fish preexec hook scripts
 - `systemd/` — systemd user service unit
 
 ## Design notes

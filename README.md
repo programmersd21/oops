@@ -92,7 +92,7 @@ Shell-hook capture cannot intercept destructive commands from cron, systemd serv
 - `oops-core/` — types, command classifier, redirect scanner, SQLite storage, IPC protocol
 - `oops/` — single binary (CLI + daemon subcommand)
 - `oops-tui/` — ratatui terminal UI for `list` and `diff`
-- `shell-hooks/` — bash, zsh, fish preexec hook scripts
+- `oops/shell-hooks/` — bash, zsh, fish preexec hook scripts
 - `systemd/` — systemd user service unit
 
 ## License

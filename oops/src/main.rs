@@ -59,9 +59,9 @@ async fn main() {
             }
         }
         Some(Cmd::Init { shell }) => match shell.as_str() {
-            "bash" => print!("{}", include_str!("../../shell-hooks/oops.bash")),
-            "zsh" => print!("{}", include_str!("../../shell-hooks/oops.zsh")),
-            "fish" => print!("{}", include_str!("../../shell-hooks/oops.fish")),
+            "bash" => print!("{}", include_str!("../shell-hooks/oops.bash")),
+            "zsh" => print!("{}", include_str!("../shell-hooks/oops.zsh")),
+            "fish" => print!("{}", include_str!("../shell-hooks/oops.fish")),
             _ => {
                 eprintln!("supported shells: bash, zsh, fish");
                 std::process::exit(1)
