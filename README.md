@@ -1,6 +1,6 @@
 <div align="center">
 
-![demo](demo.gif)
+![demo](https://raw.githubusercontent.com/programmersd21/oops/main/demo.gif)
 
 [![Version][badge-version]][link-repo]
 [![MSRV][badge-msrv]][link-rust]
@@ -23,12 +23,12 @@ oops
 
 ---
 
-[badge-version]: https://img.shields.io/badge/0.1.0-fff?style=for-the-badge-square&logo=rust&logoColor=D85A30&label=version&labelColor=1a1a1a&color=D85A30
-[badge-edition]: https://img.shields.io/badge/2024-fff?style=for-the-badge-square&logo=rust&logoColor=7F77DD&label=edition&labelColor=1a1a1a&color=7F77DD
-[badge-msrv]:    https://img.shields.io/badge/1.85-fff?style=for-the-badge-square&logo=rust&logoColor=378ADD&label=MSRV&labelColor=1a1a1a&color=378ADD
-[badge-license]: https://img.shields.io/badge/MIT-fff?style=for-the-badge-square&logo=opensourceinitiative&logoColor=fff&label=license&labelColor=1a1a1a&color=1D9E75
-[badge-platform]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge-square&logo=linux&logoColor=fff&label=&labelColor=1a1a1a
-[badge-prs]:     https://img.shields.io/badge/welcome-fff?style=for-the-badge-square&logo=github&logoColor=fff&label=PRs&labelColor=1a1a1a&color=D4537E
+[badge-version]: https://img.shields.io/badge/0.1.0-fff?style=for-the-badge&logo=rust&logoColor=D85A30&label=version&labelColor=1a1a1a&color=D85A30
+[badge-edition]: https://img.shields.io/badge/2024-fff?style=for-the-badge&logo=rust&logoColor=7F77DD&label=edition&labelColor=1a1a1a&color=7F77DD
+[badge-msrv]:    https://img.shields.io/badge/1.85-fff?style=for-the-badge&logo=rust&logoColor=378ADD&label=MSRV&labelColor=1a1a1a&color=378ADD
+[badge-license]: https://img.shields.io/badge/MIT-fff?style=for-the-badge&logo=opensourceinitiative&logoColor=fff&label=license&labelColor=1a1a1a&color=1D9E75
+[badge-platform]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=fff&label=&labelColor=1a1a1a
+[badge-prs]:     https://img.shields.io/badge/welcome-fff?style=for-the-badge&logo=github&logoColor=fff&label=PRs&labelColor=1a1a1a&color=D4537E
 [link-repo]:     https://github.com/programmersd21/oops
 [link-rust]:     https://rust-lang.org
 [link-license]:  LICENSE
