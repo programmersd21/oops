@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["oops-core", "oops", "oops-tui"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+authors = ["oops contributors"]
+rust-version = "1.85"
+repository = "https://github.com/programmersd21/oops"
+homepage = "https://github.com/programmersd21/oops"
+
+[workspace.lints.rust]
+unsafe_code = "deny"

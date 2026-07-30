@@ -1,0 +1,14 @@
+[package]
+name = "oops-tui"
+description = "Terminal UI (ratatui) for browsing oops snapshots"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+readme = "../README.md"
+
+[dependencies]
+oops-core = { path = "../oops-core" }
+ratatui = "0.28"
+crossterm = "0.28"
