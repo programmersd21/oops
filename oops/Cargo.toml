@@ -1,5 +1,5 @@
 [package]
-name = "oops"
+name = "oops-rs"
 description = "Undo daemon for destructive shell commands"
 version.workspace = true
 edition.workspace = true
