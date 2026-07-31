@@ -10,17 +10,41 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: dtolnay/rust-toolchain@stable
 
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
+          cache-workspaces: |
+            . -> target
 
-      - name: Run tests
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(cargo metadata --no-deps --format-version=1 | jq -r '.packages[0].version')
+          echo "version=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if git rev-parse "${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "Tag already exists."
+          else
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git tag "${{ steps.version.outputs.version }}"
+            git push origin "${{ steps.version.outputs.version }}"
+          fi
+
+      - name: Test
         run: cargo test --workspace --locked
 
       - name: Build
@@ -28,23 +52,22 @@ jobs:
 
       - name: Package
         run: |
-          mkdir -p dist/oops-${{ github.ref_name }}/systemd
-          mkdir -p dist/oops-${{ github.ref_name }}/shell-hooks
+          mkdir -p dist/oops-${{ steps.version.outputs.version }}/systemd
+          mkdir -p dist/oops-${{ steps.version.outputs.version }}/shell-hooks
 
-          cp target/release/oops dist/oops-${{ github.ref_name }}/
-          cp systemd/oopsd.service dist/oops-${{ github.ref_name }}/systemd/
-          cp oops/shell-hooks/* dist/oops-${{ github.ref_name }}/shell-hooks/
-          cp README.md LICENSE dist/oops-${{ github.ref_name }}/
+          cp target/release/oops dist/oops-${{ steps.version.outputs.version }}/
+          cp systemd/oopsd.service dist/oops-${{ steps.version.outputs.version }}/systemd/
+          cp oops/shell-hooks/* dist/oops-${{ steps.version.outputs.version }}/shell-hooks/
+          cp README.md LICENSE dist/oops-${{ steps.version.outputs.version }}/
 
           tar -C dist \
-            -czf oops-${{ github.ref_name }}-x86_64-unknown-linux-gnu.tar.gz \
-            oops-${{ github.ref_name }}
+            -czf oops-${{ steps.version.outputs.version }}-x86_64-unknown-linux-gnu.tar.gz \
+            oops-${{ steps.version.outputs.version }}
 
-      - name: Verify package
-        run: ls -lh oops-*.tar.gz
-
-      - name: Create GitHub Release
+      - name: Create or Update Release
         uses: softprops/action-gh-release@v2
         with:
-          files: oops-*.tar.gz
+          tag_name: ${{ steps.version.outputs.version }}
+          files: oops-${{ steps.version.outputs.version }}-x86_64-unknown-linux-gnu.tar.gz
+          overwrite_files: true
           
