@@ -98,3 +98,7 @@ Shell-hook capture cannot intercept destructive commands from cron, systemd serv
 ## License
 
 MIT
+
+## Star History
+
+[![RepoStars](https://repostars.dev/api/embed?repo=programmersd21%2Foops&theme=dune)](https://repostars.dev/?repos=programmersd21%2Foops&theme=dune)
