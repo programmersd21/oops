@@ -23,17 +23,17 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           cache-all-crates: true
-          cache-workspaces: |
-            . -> target
 
       - name: Get version
         id: version
+        shell: bash
         run: |
           VERSION=$(cargo metadata --no-deps --format-version=1 | jq -r '.packages[0].version')
           echo "version=v$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create tag
         if: github.event_name == 'workflow_dispatch'
+        shell: bash
         run: |
           if git rev-parse "${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
             echo "Tag already exists."
@@ -51,6 +51,7 @@ jobs:
         run: cargo build --workspace --release --locked
 
       - name: Package
+        shell: bash
         run: |
           mkdir -p dist/oops-${{ steps.version.outputs.version }}/systemd
           mkdir -p dist/oops-${{ steps.version.outputs.version }}/shell-hooks
