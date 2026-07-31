@@ -1,24 +1,50 @@
 name: release
+
 on:
   push:
-    tags: ["v*"]
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo build --workspace --release
-      - run: cargo test --workspace
-      - run: |
-          mkdir -p dist/oops-${{ github.ref_name }}/systemd dist/oops-${{ github.ref_name }}/shell-hooks
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Run tests
+        run: cargo test --workspace --locked
+
+      - name: Build
+        run: cargo build --workspace --release --locked
+
+      - name: Package
+        run: |
+          mkdir -p dist/oops-${{ github.ref_name }}/systemd
+          mkdir -p dist/oops-${{ github.ref_name }}/shell-hooks
+
           cp target/release/oops dist/oops-${{ github.ref_name }}/
           cp systemd/oopsd.service dist/oops-${{ github.ref_name }}/systemd/
           cp oops/shell-hooks/* dist/oops-${{ github.ref_name }}/shell-hooks/
           cp README.md LICENSE dist/oops-${{ github.ref_name }}/
-          tar -C dist -czf oops-${{ github.ref_name }}-x86_64-unknown-linux-gnu.tar.gz oops-${{ github.ref_name }}
-      - name: Create release
+
+          tar -C dist \
+            -czf oops-${{ github.ref_name }}-x86_64-unknown-linux-gnu.tar.gz \
+            oops-${{ github.ref_name }}
+
+      - name: Verify package
+        run: ls -lh oops-*.tar.gz
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: oops-*.tar.gz
-          generate_release_notes: true
+          
